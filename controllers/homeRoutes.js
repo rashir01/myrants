@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { Post, User } = require('../models');
 const withAuth = require('../utils/auth');
 const path = require('path');
+//const { where } = require('sequelize/types');
 
 router.get('/', async (req, res) => {
   try {
@@ -29,6 +30,44 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Use withAuth middleware to prevent access to route
+// router.get('/dashboard', withAuth, async (req, res) => {
+//   console.log('inside /dashboard homeRouts.js');
+//   return;
+  // try{ 
+  //   const postsOfUser = await Post.findAll({ 
+  //     where: { user_id: req.session.user_id },
+  //     include: [
+  //       {
+  //         model: Post, 
+  //         attributes: ['title', 'description']
+  //       }
+  //     ]
+  //   });
+  //   console.log('xxxxxxxxxxx' + postsOfUser);
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
+  // try {
+  //   // Find the logged in user based on the session ID
+  //   const userPosts = await User.findByPk(req.session.user_id, {
+  //     attributes: { exclude: ['user_password'] },
+  //     include: [{ model: Post }],
+  //   });
+
+  //   const user = userData.get({ plain: true });
+
+  //   console.log(user);
+
+  //   res.render('dashboard', {
+  //     ...user,
+  //     logged_in: true
+  //   });
+  // } catch (err) {
+  //   res.status(500).json(err);
+  // }
+//});
+
 router.get('/project/:id', async (req, res) => {
   try {
     const projectData = await Post.findByPk(req.params.id, {
@@ -53,6 +92,8 @@ router.get('/project/:id', async (req, res) => {
 
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
+  console.log('THIS IS /DASHBOARD');
+  console.log('user id is ' + req.session.user_id);
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {

@@ -1,5 +1,6 @@
 const newFormHandler = async (event) => {
   event.preventDefault();
+  console.log("this is new form handler!!!!!!!!!");
 
   const title = document.querySelector('#project-name').value.trim();
   const content = document.querySelector('#project-desc').value.trim();
@@ -14,6 +15,8 @@ const newFormHandler = async (event) => {
     });
 
     if (response.ok) {
+      console.log("response ok... sending to /dashboard");
+      console.log("response stringify " + JSON.stringify(response))
       document.location.replace('/dashboard');
     } else {
       alert('Failed to create project');
