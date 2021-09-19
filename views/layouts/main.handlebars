@@ -13,18 +13,20 @@
   <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
       <h1>
-        <a href="/">My Rants</a>
+        My Rants
       </h1>
       <nav>
         <a href="/">Home</a>
         <!-- TODO add to handlebars and ensure only accessible if logged in --> 
-        <a href="/">Dashboard</a>
+        
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
-        <a href="/profile">profile</a> |
-        <button class="no-button" id="logout">logout</button>
+          <a href="/profile">profile</a> |
+          <button class="no-button" id="logout">logout</button>
+          <a href="/">Dashboard</a>
         {{else}}
-        <a href="/login">login</a>
+          <a href="/login">Dashboard</a>
+          <a href="/login">Login</a>
         {{/if}}
       </nav>
     </header>
