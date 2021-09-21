@@ -18,12 +18,13 @@ router.get('/', async (req, res) => {
 
     // Serialize data so the template can read it
     const posts = postData.map((post) => post.get({ plain: true }));
-    console.log(posts);
+    //console.log(posts);
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
       post: posts, 
-      logged_in: req.session.logged_in 
+      logged_in: req.session.logged_in,
+      logged_in_userid: req.session.user_id 
     });
   } catch (err) {
     res.status(500).json(err);
@@ -92,8 +93,8 @@ router.get('/project/:id', async (req, res) => {
 
 // Use withAuth middleware to prevent access to route
 router.get('/dashboard', withAuth, async (req, res) => {
-  console.log('THIS IS /DASHBOARD');
-  console.log('user id is ' + req.session.user_id);
+  //console.log('THIS IS /DASHBOARD');
+  //console.log('user id is ' + req.session.user_id);
   try {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
@@ -103,11 +104,11 @@ router.get('/dashboard', withAuth, async (req, res) => {
 
     const user = userData.get({ plain: true });
 
-    console.log(user);
+    //console.log(user);
 
     res.render('dashboard', {
       ...user,
-      logged_in: true
+      logged_in: req.session.logged_in,
     });
   } catch (err) {
     res.status(500).json(err);

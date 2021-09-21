@@ -22,6 +22,8 @@
    }
  });
 
+
+
  router.get('/:id', async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
@@ -34,16 +36,59 @@
     });
 
     const post = postData.get({ plain: true });
-    console.log(post);
+    //console.log(post);
+    
 
     res.render('post', {
       ...post,
-      logged_in: req.session.logged_in
+      logged_in: req.session.logged_in,
+      logged_in_user_id: req.session.user_id
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
+
+router.put('/:id', withAuth, async (req,res) => {
+  console.log(`xxxxxx put route ${req.params.id} req.body ${req.body.title}`);
+  try {
+    const updatedPost = await Post.update(
+      {
+        title: req.body.title,
+        content: req.body.content,
+      },
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+    
+
+    
+    const postData = await Post.findByPk(req.params.id, {
+      include: [
+        {
+          model: User,
+          attributes: ['user_name'],
+        },
+      ],
+    });
+
+    const post = postData.get({ plain: true });
+    console.log("XXXX TRY SUCCEEDED! RENDERING NOW!");
+    
+
+    res.render('post', {
+      ...post,
+      logged_in: req.session.logged_in,
+      logged_in_user_id: req.session.user_id
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+  
+})
 
  router.delete('/:id', withAuth, async (req, res) => {
   try {

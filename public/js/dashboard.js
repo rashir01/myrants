@@ -1,6 +1,6 @@
 const newFormHandler = async (event) => {
   event.preventDefault();
-  console.log("this is new form handler!!!!!!!!!");
+  alert('this is newFormHandler in dashboard.js');
 
   const title = document.querySelector('#project-name').value.trim();
   const content = document.querySelector('#project-desc').value.trim();
@@ -15,8 +15,8 @@ const newFormHandler = async (event) => {
     });
 
     if (response.ok) {
-      console.log("response ok... sending to /dashboard");
-      console.log("response stringify " + JSON.stringify(response))
+      //console.log("response ok... sending to /dashboard");
+      //console.log("response stringify " + JSON.stringify(response))
       document.location.replace('/dashboard');
     } else {
       alert('Failed to create project');
@@ -25,6 +25,7 @@ const newFormHandler = async (event) => {
 };
 
 const delButtonHandler = async (event) => {
+  alert('this is delete in dashboard.js');
   if (event.target.hasAttribute('data-id')) {
     const id = event.target.getAttribute('data-id');
 
@@ -40,10 +41,17 @@ const delButtonHandler = async (event) => {
   }
 };
 
+const updateButtonHandler = async (event) => {
+  alert('this is update in dashboard.js');
+
+};
+
 document
   .querySelector('.new-project-form')
   .addEventListener('submit', newFormHandler);
 
 document
-  .querySelector('.project-list')
+  .querySelector('.btn-danger')
   .addEventListener('click', delButtonHandler);
+
+

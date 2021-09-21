@@ -19,4 +19,10 @@ module.exports = {
       return `<span for="img" aria-label="gear">⚙️</span>`;
     }
   },
+  check_equal: (value1, value2) => {
+    return value1 === value2;
+  }, 
+  getPostString: (postObject) => {
+    return JSON.stringify(postObject);
+  },
 };
