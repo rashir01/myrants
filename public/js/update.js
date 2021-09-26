@@ -1,8 +1,8 @@
 const updateFormHandler = async (event) => {
   event.preventDefault();
   //initializations
-  var titleDiv = document.getElementById("title-div");
-  var bodyDiv = document.getElementById("body-div");
+  let titleDiv = document.getElementById("title-div");
+  let bodyDiv = document.getElementById("body-div");
   let title = "";
   let content = "";
 
@@ -37,20 +37,21 @@ const updateFormHandler = async (event) => {
     removeAllChildNodes(bodyDiv);
 
     alert('unable to get title and content');
-    var updateTitleLable = document.createElement("label");
+    let updateTitleLable = document.createElement("label");
     updateTitleLable.setAttribute('for', "project-name");
     updateTitleLable.textContent = "Post Title:";
-    var updateTitleTextBox = document.createElement("input");
+    let updateTitleTextBox = document.createElement("input");
     updateTitleTextBox.setAttribute('class', "form-input");
     updateTitleTextBox.setAttribute('type', 'text');
-    updateTitleTextBox.setAttribute('id', "post-title"); updateTitleTextBox.setAttribute('name', "project-name");
+    updateTitleTextBox.setAttribute('id', "post-title"); 
+    updateTitleTextBox.setAttribute('name', "project-name");
     titleDiv.appendChild(updateTitleLable);
     titleDiv.appendChild(updateTitleTextBox);
 
-    var updateBodyLabel = document.createElement("label");
+    let updateBodyLabel = document.createElement("label");
     updateBodyLabel.setAttribute('for', 'project-desc');
     updateBodyLabel.textContent = "Post Content:";
-    var updateBodyTextBox = document.createElement("textarea");
+    let updateBodyTextBox = document.createElement("textarea");
     updateBodyTextBox.setAttribute('class', 'form-input');
     updateBodyTextBox.setAttribute('id', 'post-content');
     updateBodyTextBox.setAttribute('name', 'project-desc');
@@ -67,6 +68,59 @@ function removeAllChildNodes(parent) {
     parent.removeChild(parent.firstChild);
   }
 }
+
+const commentFormHandler = async (event) => {
+  event.preventDefault();
+  let commentDiv = document.getElementById("comment-div");
+  //if the comment text area is shown 
+  if(commentDiv.hasChildNodes()) {
+    //get the text
+    const post_id = document.getElementById('post-id').textContent;
+
+    let content = document.getElementById("comment-text").value.trim();
+    //add the comment to the post
+    if (content) {
+      const response = await fetch(`/api/comment/`, {
+        method: 'POST',
+        body: JSON.stringify({ content, post_id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (response.ok) {
+        console.log("response stringify " + JSON.stringify(response))
+        document.location.replace('/');
+  
+      } else {
+        alert('Failed to create project');
+      }
+    }
+    //remove the text area
+    removeAllChildNodes(commentDiv);
+
+  } else {
+    //show the comment textarea
+
+    let addCommentLabel = document.createElement("label");
+    addCommentLabel.setAttribute('for', "project-name");
+    addCommentLabel.textContent = "Comment:";
+    let commentTextBox = document.createElement("textarea");
+    commentTextBox.setAttribute('class', "form-input");
+    commentTextBox.setAttribute('type', 'text');
+    commentTextBox.setAttribute('id', "comment-text"); 
+    commentTextBox.setAttribute('name', "project-name");
+    commentDiv.appendChild(addCommentLabel);
+    commentDiv.appendChild(commentTextBox);
+  }
+  //if comment text is not showing add it
+
+  //else get the text from it and remove it
+  //send the text to backend 
+}
+
+document.querySelector('.comment-button')
+.addEventListener('click', commentFormHandler);
 
 document
   .querySelector('.update-button')
