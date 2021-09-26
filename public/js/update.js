@@ -90,7 +90,7 @@ const commentFormHandler = async (event) => {
   
       if (response.ok) {
         console.log("response stringify " + JSON.stringify(response))
-        document.location.replace('/');
+        document.location.replace(`/api/posts/${post_id}`);
   
       } else {
         alert('Failed to create project');
