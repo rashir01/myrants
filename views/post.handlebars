@@ -1,22 +1,20 @@
-<div class="text-center">
-  <h2>{{title}}</h2>
-  <p>{{content}}</p>
+<div>
+  Post Title: {{title}}
+  <br>
+  Post By: {{user.user_name}}
+  <br>
+  on: {{format_date date_created}}
+  <br>
+  Text: 
+  <p>{{content}} </p>
   
   {{#if (check_equal logged_in_user_id user_id)}}
     <form class="form new-project-form">
-      <div class="form-group">
-        <label for="project-name ">Post Title:</label>
-        <input class="form-input" type="text" id="post-title" name="project-name" />
-      </div>
-      
-      <div class="form-group">
-        <label for="project-desc">content:</label>
-        <textarea class="form-input" id="post-content" name="project-desc"></textarea>
-      </div>
+      <div class="form-group" id="title-div"></div>
+      <div class="form-group" id="body-div"></div>
       <div class="form-group">
         <p hidden id="post-id">{{id}}</p>
-        <button type="submit" class="btn btn-primary update-button">Update</button>
-        
+        <button type="submit" class="btn btn-primary update-button">Update Post</button>
       </div>
     </form>
   {{/if}}
