@@ -1,6 +1,5 @@
 const loginFormHandler = async (event) => {
   event.preventDefault();
-  alert('this is login in login.js');
   // Collect values from the login form
   const email = document.querySelector('#email-login').value.trim();
   const password = document.querySelector('#password-login').value.trim();
@@ -24,7 +23,6 @@ const loginFormHandler = async (event) => {
 
 const signupFormHandler = async (event) => {
   event.preventDefault();
-  alert('this is signup in login.js');
   const user_name = document.querySelector('#name-signup').value.trim();
   const user_email = document.querySelector('#email-signup').value.trim();
   const user_password = document.querySelector('#password-signup').value.trim();

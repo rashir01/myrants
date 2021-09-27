@@ -29,14 +29,13 @@ const updateFormHandler = async (event) => {
       document.location.replace('/dashboard');
 
     } else {
-      alert('Failed to create project');
+      alert('Failed to create post');
     }
   } else {
     //if no title and content, then show the labels and fileds
     removeAllChildNodes(titleDiv);
     removeAllChildNodes(bodyDiv);
 
-    alert('unable to get title and content');
     let updateTitleLable = document.createElement("label");
     updateTitleLable.setAttribute('for', "project-name");
     updateTitleLable.textContent = "Post Title:";
@@ -93,7 +92,7 @@ const commentFormHandler = async (event) => {
         location.reload();
   
       } else {
-        alert('Failed to create project');
+        alert('Failed to create comment');
       }
     }
     //remove the text area
