@@ -10,13 +10,11 @@
   
   <br> 
   <p>comments</p>
-  
+
   {{#each comments as |currentComment|}}
-    <p> {{currentComment.content}}</p>
+    <p>{{currentComment.user.user_name}} commented: {{currentComment.content}} on {{format_date currentComment.date_created}}</p>
+    <hr>
   {{/each}}
-
-
-
   <form class="form new-project-form">
     <div>
       <p hidden id="post-id">{{id}}</p>

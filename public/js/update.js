@@ -89,9 +89,6 @@ const commentFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        //console.log("response stringify " + JSON.stringify(response))
-        //let response2 = JSON.stringify(response);
-        //console.log(`respsonse ${response2}`);
         document.location.replace(`/api/posts/${post_id}`);
         location.reload();
   
@@ -116,10 +113,7 @@ const commentFormHandler = async (event) => {
     commentDiv.appendChild(addCommentLabel);
     commentDiv.appendChild(commentTextBox);
   }
-  //if comment text is not showing add it
 
-  //else get the text from it and remove it
-  //send the text to backend 
 }
 
 document.querySelector('.comment-button')

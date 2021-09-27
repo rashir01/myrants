@@ -1,16 +1,10 @@
-<!-- Loop over each object in the projects array -->
+<!-- Loop over each post in the posts array -->
 {{#each post as |currentPost| }}
 <div class="row mb-4 project">
   <div class="col-md-5">
     <h2>
-      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
-
       <a href="api/posts/{{currentPost.id}}">{{currentPost.title}}</a>
     </h2>
-    <p>
-      
-     
-    </p>
     <p>Posted By {{currentPost.user.user_name}} on {{format_date currentPost.date_created}}</p>
   </div>
   <div class="col-md-7">
