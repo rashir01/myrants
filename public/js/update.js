@@ -29,7 +29,7 @@ const updateFormHandler = async (event) => {
       document.location.replace('/dashboard');
 
     } else {
-      alert('Failed to create post');
+      alert('Failed to update post');
     }
   } else {
     //if no title and content, then show the labels and fileds

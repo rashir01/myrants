@@ -1,4 +1,4 @@
-const updateButtonHandler = async (event) => {
+const newFormHandler = async (event) => {
   event.preventDefault();
 
   const title = document.querySelector('#project-name').value.trim();
@@ -14,6 +14,8 @@ const updateButtonHandler = async (event) => {
     });
 
     if (response.ok) {
+      //console.log("response ok... sending to /dashboard");
+      //console.log("response stringify " + JSON.stringify(response))
       document.location.replace('/dashboard');
     } else {
       alert('Failed to create post');
@@ -39,7 +41,7 @@ const delButtonHandler = async (event) => {
 
 document
   .querySelector('.new-project-form')
-  .addEventListener('submit', updateButtonHandler);
+  .addEventListener('submit', newFormHandler);
 
 document
   .querySelector('.btn-danger')
