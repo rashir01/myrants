@@ -89,8 +89,11 @@ const commentFormHandler = async (event) => {
       });
   
       if (response.ok) {
-        console.log("response stringify " + JSON.stringify(response))
+        //console.log("response stringify " + JSON.stringify(response))
+        //let response2 = JSON.stringify(response);
+        //console.log(`respsonse ${response2}`);
         document.location.replace(`/api/posts/${post_id}`);
+        location.reload();
   
       } else {
         alert('Failed to create project');
@@ -121,7 +124,8 @@ const commentFormHandler = async (event) => {
 
 document.querySelector('.comment-button')
 .addEventListener('click', commentFormHandler);
-
+try {
 document
   .querySelector('.update-button')
   .addEventListener('click', updateFormHandler);
+} catch (err) {}

@@ -1,5 +1,5 @@
  const router = require('express').Router();
- const { Post, User } = require('../../models');
+ const { Post, User, Comment } = require('../../models');
  const withAuth = require('../../utils/auth');
 
 
@@ -26,25 +26,48 @@
 
  router.get('/:id', async (req, res) => {
   try {
+    const commentsData = await Comment.findAll(
+      {
+        attributes: ['content', 'date_created'],
+        include: [
+          {
+            model: User,
+            attributes: ['user_name'],
+          }
+        ],
+        where: {
+          post_id: req.params.id,
+        }
+    });
+    const comments = commentsData.map((comment) =>
+      comment.get({ plain: true })
+    );
+    //const ssss = JSON.stringify(comments);
+
+     //console.log(`comments ${ssss}`);
     const postData = await Post.findByPk(req.params.id, {
       include: [
         {
           model: User,
           attributes: ['user_name'],
         },
+        
       ],
     });
 
     const post = postData.get({ plain: true });
-    //console.log(post);
+    console.log(`post ${post}`);
     
 
     res.render('post', {
       ...post,
+      comments: comments,
       logged_in: req.session.logged_in,
-      logged_in_user_id: req.session.user_id
+      logged_in_user_id: req.session.user_id,
+      // comments: comments,
     });
   } catch (err) {
+    console.log(`error with plain ${err}`)
     res.status(500).json(err);
   }
 });
